@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>G00GLE</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>G00GLE</h1>
+          <p>
+            Search for something. We are totally <i>not</i> collecting
+            personal data, yo!
+          </p>
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="my little pony x pokemon collab"
+                aria-label="search query"
+                aria-describedby="basic-addon2"
+                id="search_input"
+              >
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="search_button"
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+            <div id="search_results"></div>
+
+            <div id="footer">
+              <hr>
+              View the <a href="/api/log">log</a>.
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+      var search_button  = document.getElementById("search_button");
+      var search_input   = document.getElementById("search_input");
+
+      search_button.onclick = handleSubmit; // HOISSTINNGG...
+      function handleSubmit() {
+          $.ajax({
+              type: "POST",
+              url: "/api/add/" + search_input.value,
+              data: {
+                  "message": "hello world"
+              },
+              dataType: "json"
+          });
+
+          $('#search_results').html(
+              `
+              <h2>Search Results</h2>
+              <p>You searched <i>${search_input.value}</i></p>
+              <ol>
+                <li>(SPONSORED) git good for only $100/mo</li>
+                <li>(SPONSORED) why is rent in this town so expensive</li>
+                <li>(SPONSORED) gotta catch them all?!</li>
+                <li>(SPONSORED) bestest web framework evar</li>
+                <li>(SPONSORED) i want tacos.</li>
+                <li><a href="https://github.com/captainalan">
+                      ${search_input.value} in your neighborhood.
+                    </a>
+                </li>
+              </ol>
+              `);
+      }
+
+      $('#search_input').on('keyup', function (e) {
+          if (e.keyCode == 13) {
+              handleSubmit();
+          }
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+# Node things
+node_modules/
+package-lock.json
+
+# Editor things
+*~
+
+# Log file
